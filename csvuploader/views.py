@@ -3,7 +3,7 @@ from django.conf import settings
 import pandas as pd
 
 from .forms import CSVUploadForm
-from .preprocessing.clean import preprocess_csv  # Ajusta según la ubicación real de tu función de preprocesamiento
+from .preprocessing.p00_preprocessing import preprocess_csv  # Ajusta según la ubicación real de tu función de preprocesamiento
 
 def upload_csv(request):
     if request.method == 'POST':
