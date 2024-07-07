@@ -10,8 +10,12 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
 
-# importaciones para manejo de datos
+# Importaciones para manejo de datos
 import pandas as pd
+
+# Importaciones para la gestion de credenciales
+from sqlalchemy import create_engine
+from django.conf import settings
 
 # Descargar recursos de nltk necesarios
 nltk.download('wordnet')
@@ -195,3 +199,21 @@ def clean_outliners(df, column):
     upper_bound = Q3 + 1.5 * IQR
     df_clean = df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
     return df_clean
+
+
+
+def save_to_mysql(df, table_name):
+    # Utiliza las configuraciones de settings.py
+    user = settings.DATABASES['default']['USER']
+    password = settings.DATABASES['default']['PASSWORD']
+    host = settings.DATABASES['default']['HOST']
+    database = settings.DATABASES['default']['NAME']
+
+    # Crea la cadena de conexión
+    connection_string = f'mysql://{user}:{password}@{host}/{database}'
+
+    # Crea el motor de SQLAlchemy
+    engine = create_engine(connection_string)
+
+    # Guarda el DataFrame en MySQL
+    df.to_sql(name=table_name, con=engine, if_exists='append', index=False)

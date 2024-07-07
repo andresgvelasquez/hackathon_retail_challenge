@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from django.conf import settings
-import pandas as pd
 
 from .forms import CSVUploadForm
 from .preprocessing.p00_preprocessing import preprocess_csv
 from .preprocessing.p01_feat_eng import feature_engineering
+from utils.functions import save_to_mysql
 
 def upload_csv(request):
     if request.method == 'POST':
@@ -18,8 +17,9 @@ def upload_csv(request):
             # Feature engineering
             df_feat_eng = feature_engineering(df_clean)
 
-            # Aquí podrías guardar df_clean en la base de datos si es necesario
-            
+            # Enviar el dataframe a la base de datos mysql
+            save_to_mysql(df_clean, 'nombre_de_tu_tabla')
+
             return render(request, 'csvuploader/upload_success.html', {'df_clean': df_feat_eng})
     else:
         form = CSVUploadForm()
