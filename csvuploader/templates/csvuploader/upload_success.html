@@ -1,0 +1,23 @@
+
+<h2>¡Datos procesados exitosamente!</h2>
+<p>El DataFrame tiene {{ df_clean.shape.0 }} filas y {{ df_clean.shape.1 }} columnas.</p>
+
+<!-- Aquí puedes mostrar los datos del DataFrame -->
+<table>
+    <thead>
+        <tr>
+            {% for col in df_clean.columns %}
+                <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for index, row in df_clean.iterrows %}
+            <tr>
+                {% for value in row %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
