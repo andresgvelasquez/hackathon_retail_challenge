@@ -1,6 +1,7 @@
 import pandas as pd
 
-from ..utils.functions import fill_empty_descriptions, normalized_descriptions, treatment_missing_values # Funciones locales
+from ..utils.functions import clean_outliners, fill_empty_descriptions, normalized_descriptions, treatment_missing_values # Funciones locales
+
 def preprocess_csv(csv_file, normalize_description=False):
 
     # lectura del dataframe 
@@ -25,4 +26,8 @@ def preprocess_csv(csv_file, normalize_description=False):
     if normalize_description:
         df_clean = normalized_descriptions(df_clean)
 
-    return df_clean.head()
+    # Eliminar valores atípicos para quantity y unit_price
+    df_clean = clean_outliners(df_clean, 'quantity')
+    df_clean = clean_outliners(df_clean, 'unit_price')
+
+    return df_clean

@@ -186,3 +186,12 @@ def normalized_descriptions(df):
     df.drop(column='description', inplace=True)
 
     return df
+
+def clean_outliners(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    df_clean = df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
+    return df_clean
