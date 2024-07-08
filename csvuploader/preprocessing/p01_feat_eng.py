@@ -28,4 +28,4 @@ def feature_engineering(df_clean):
     neg_invoices_per_customer = df_feat_eng[df_feat_eng['quantity'] < 0].groupby('customer_id').agg(neg_invoices_per_cusotmer=('customer_id', 'count')).reset_index() # Contar las facturas con cantidades negativas
     df_feat_eng = df_feat_eng.merge(neg_invoices_per_customer, on='customer_id', how='left')                                                                          # Asignar los valores a cada factura
 
-    return df_feat_eng
+    return df_feat_eng.head()
