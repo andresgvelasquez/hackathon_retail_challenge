@@ -10,6 +10,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+data/db/pg_stamp_tmp/
 .Python
 build/
 develop-eggs/
