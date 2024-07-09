@@ -65,7 +65,7 @@ Para ejecutar el proyecto, sigue estos pasos:
                       > Username: admin
                       > Password: 12345
         4) Save
-    Accede dando click al servidor creado > db_online_retail > Schemas > Tables y ahi se cargara el archivo csv que se sube a la web. 
+    Accede dando click al servidor creado > db_online_retail > Schemas > Tables > `Online retail`. Ahí se cargara el archivo csv que se sube a la web. 
 
 ## Fases del Proyecto
 
