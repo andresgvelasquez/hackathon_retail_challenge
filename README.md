@@ -56,15 +56,15 @@ Para ejecutar el proyecto, sigue estos pasos:
     - Accede con las credenciales configuradas y verifica los datos cargados en la base de datos PostgreSQL.
     - pgAdmin estará disponible en `http://localhost:80/`, se aloja en el contendor *pgadmin*.
     - usuario: `admin@admin.com`, contraseña `admin`.
-    - Crear un nuevo servidor:
-        1) Servers > Register > server...
-        2) General > Name: Docker 
-        3) Connection > Host name/adress: db
-                      > Port: 5432
-                      > Maintance database: postgres
-                      > Username: admin
-                      > Password: 12345
-        4) Save
+    - Crear un nuevo servidor:  
+        1) Servers > Register > server...  
+        2) General > Name: Docker  
+        3) Connection > Host name/adress: db 
+                      > Port: 5432  
+                      > Maintance database: postgres  
+                      > Username: admin  
+                      > Password: 12345  
+        4) Save  
     Accede dando click al servidor creado > db_online_retail > Schemas > Tables > `Online retail`. Ahí se cargara el archivo csv que se sube a la web. 
 
 ## Fases del Proyecto
