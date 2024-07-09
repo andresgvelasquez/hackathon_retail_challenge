@@ -47,14 +47,25 @@ Para ejecutar el proyecto, sigue estos pasos:
     ```
 
 2. Acceder a la web de Django para cargar el archivo CSV:
-    - La aplicación web estará disponible en `http://localhost:8000`, se aloja en el contenedor *django*. 
+    - La aplicación web estará disponible en `http://127.0.0.1:8000/csv_uploader/upload-csv/`, se aloja en el contenedor *django*. 
     - Sube el archivo CSV a través de la interfaz web. La ubicación es: ./datasets/input/Online_Retail.csv
 
 3. El archivo CSV será procesado y cargado en una base de datos PostgreSQL alojada en otro contenedor *postgresql*.
 
 4. Visualizar la base de datos a través de pgAdmin:
-    - pgAdmin estará disponible en `http://localhost:5050`, se aloja en el contendor *pgadmin*.
     - Accede con las credenciales configuradas y verifica los datos cargados en la base de datos PostgreSQL.
+    - pgAdmin estará disponible en `http://localhost:80/`, se aloja en el contendor *pgadmin*.
+    - usuario: `admin@admin.com`, contraseña `admin`.
+    - Crear un nuevo servidor:
+        1) Servers > Register > server...
+        2) General > Name: Docker 
+        3) Connection > Host name/adress: db
+                      > Port: 5432
+                      > Maintance database: postgres
+                      > Username: admin
+                      > Password: 12345
+        4) Save
+    Accede dando click al servidor creado > db_online_retail > Schemas > Tables y ahi se cargara el archivo csv que se sube a la web. 
 
 ## Fases del Proyecto
 
