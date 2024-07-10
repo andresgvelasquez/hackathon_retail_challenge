@@ -7,7 +7,7 @@ class CSVData(models.Model):
     description = models.CharField(max_length=255)
     quantity = models.IntegerField()
     unit_price = models.FloatField()
-    customer_id = models.FloatField()
+    customer_id = models.CharField(max_length=10)
     region = models.CharField(max_length=100)
     invoice_day = models.IntegerField()
     invoice_month = models.IntegerField()

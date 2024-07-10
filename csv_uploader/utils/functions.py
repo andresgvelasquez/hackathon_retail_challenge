@@ -208,10 +208,10 @@ def save_to_postgres(df, table_name):
 
     # Utiliza las configuraciones de settings.py
     user = os.getenv('POSTGRES_USER')
-    password = os.getenv('POSTGRES_PASSWORD_ONLINE_RETAIL')
+    password = os.getenv('POSTGRES_PASSWORD_RETAIL_ONLINE')
     host = os.getenv('POSTGRES_HOST')
     database = os.getenv('POSTGRES_DB')
-    print('POSTGRES_PASSWORD_ONLINE_RETAIL:', os.environ)
+
     # Crea la cadena de conexión
     connection_string = f'postgresql+psycopg2://{user}:{password}@{host}/{database}'
 
