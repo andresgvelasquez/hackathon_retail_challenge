@@ -1,95 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>EDA Visualization</title>
+    <meta charset="UTF-8">
+    <title>Análisis Exploratorio de Datos (EDA)</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Exploratory Data Analysis (EDA)</h1>
+    <h1>Análisis Exploratorio de Datos (EDA)</h1>
 
-    <h2>Distribución de QUANTITY</h2>
-    <canvas id="quantityChart"></canvas>
+    {% if missing_data %}
+        <h2>Valores Ausentes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Columna</th>
+                    <th>Número de Valores Ausentes</th>
+                    <th>Porcentaje de Valores Ausentes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for column, data in missing_data.items %}
+                    <tr>
+                        <td>{{ column }}</td>
+                        <td>{{ data.num_missing }}</td>
+                        <td>{{ data.percent_missing }}%</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 
-    <h2>Distribución de UNIT_PRICE</h2>
-    <canvas id="unitPriceChart"></canvas>
+    <!-- Aquí puedes agregar más visualizaciones o análisis utilizando Chart.js -->
 
-    <h2>Frecuencia de Clientes por Región</h2>
-    <canvas id="regionChart"></canvas>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Data for QUANTITY
-            const quantityData = JSON.parse('{{ quantity_data|escapejs }}');
-            const quantityChart = new Chart(document.getElementById('quantityChart'), {
-                type: 'bar',
-                data: {
-                    labels: Array.from({length: quantityData.length}, (_, i) => i + 1),
-                    datasets: [{
-                        label: 'QUANTITY',
-                        data: quantityData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            // Data for UNIT_PRICE
-            const unitPriceData = JSON.parse('{{ unit_price_data|escapejs }}');
-            const unitPriceChart = new Chart(document.getElementById('unitPriceChart'), {
-                type: 'bar',
-                data: {
-                    labels: Array.from({length: unitPriceData.length}, (_, i) => i + 1),
-                    datasets: [{
-                        label: 'UNIT_PRICE',
-                        data: unitPriceData,
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            // Data for REGION
-            const regionData = JSON.parse('{{ region_data|escapejs }}');
-            const regionLabels = Object.keys(regionData);
-            const regionValues = Object.values(regionData);
-            const regionChart = new Chart(document.getElementById('regionChart'), {
-                type: 'bar',
-                data: {
-                    labels: regionLabels,
-                    datasets: [{
-                        label: 'Frequency',
-                        data: regionValues,
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    scales: {
-                        x: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>

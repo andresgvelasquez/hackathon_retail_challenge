@@ -219,7 +219,7 @@ def save_to_postgres(df, table_name):
     engine = create_engine(connection_string)
     Session = sessionmaker(bind=engine)
     session = Session()
-    print(df.head().T)
+
     try:
         # Guarda el DataFrame en PostgreSQL
         df.to_sql(name=table_name, con=engine, if_exists='append', index=False)
@@ -230,3 +230,17 @@ def save_to_postgres(df, table_name):
         print(f'Error al guardar DataFrame en PostgreSQL: {str(e)}')
     finally:
         session.close()
+
+def calculate_missing_values(df):
+    missing_values = df.isnull().sum()  # Calcula los valores ausentes por columna
+    total_values = df.shape[0]          # Número total de filas
+
+    # Crea un diccionario con los resultados para cada columna
+    missing_data = {}
+    for column_name, num_missing in zip(missing_values.index, missing_values.values):
+        missing_data[column_name] = {
+            'num_missing': num_missing,
+            'percent_missing': (num_missing / total_values) * 100
+        }
+
+    return missing_data

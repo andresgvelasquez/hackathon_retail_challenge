@@ -29,5 +29,4 @@ def feature_engineering(df_clean):
     df_feat_eng = df_feat_eng.merge(neg_invoices_per_customer, on='customer_id', how='left')                                                                          # Asignar los valores a cada factura
     df_feat_eng.fillna(0,inplace=True)# Rellenar los usuarios sin facturas negativas con el valor 0
 
-    print(df_feat_eng.info())
     return df_feat_eng

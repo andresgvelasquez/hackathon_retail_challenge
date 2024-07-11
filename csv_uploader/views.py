@@ -6,15 +6,14 @@ from .preprocessing.p01_feat_eng import feature_engineering
 from .utils.functions import save_to_postgres
 from .insights.i00_EDA import prepare_json_EDA
 
-
 def upload_csv(request):
     if request.method == 'POST':
         form = CSVUploadForm(request.POST, request.FILES)
         if form.is_valid():
             csv_file = request.FILES['csv_file']
-            
+
             # Limpieza del CSV
-            df_clean = preprocess_csv(csv_file)
+            df_clean, missing_data = preprocess_csv(csv_file)
             
             # Feature engineering
             df_feat_eng = feature_engineering(df_clean)
@@ -24,8 +23,7 @@ def upload_csv(request):
 
             # Convertir EDA en json para mostralo en la web
             context = prepare_json_EDA(df_feat_eng)
-
-
+            context['missing_data'] = missing_data
             #return render(request, 'csvuploader/upload_success.html', {'df_clean': df_feat_eng})
             return render(request, 'csvuploader/eda_template.html', context)
     else:

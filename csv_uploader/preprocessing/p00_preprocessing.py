@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ..utils.functions import clean_outliners, fill_empty_descriptions, normalized_descriptions, treatment_missing_values # Funciones locales
+from ..utils.functions import clean_outliners, fill_empty_descriptions, calculate_missing_values, normalized_descriptions, treatment_missing_values # Funciones locales
 
 def preprocess_csv(csv_file, normalize_description=False, outliners=False):
 
@@ -9,6 +9,9 @@ def preprocess_csv(csv_file, normalize_description=False, outliners=False):
 
     # Pasar el nombre de las columnas a mínusculas y dejarlo en snake_case
     df.columns = df.columns.str.lower()
+
+    # Calcular valores ausentes
+    missing_data = calculate_missing_values(df)
 
     # Tratamiento de valores ausentes
     df_without_nan = treatment_missing_values(df)
@@ -31,4 +34,4 @@ def preprocess_csv(csv_file, normalize_description=False, outliners=False):
         df_clean = clean_outliners(df_clean, 'quantity')
         df_clean = clean_outliners(df_clean, 'unit_price')
 
-    return df_clean
+    return df_clean, missing_data
